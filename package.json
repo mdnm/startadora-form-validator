@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev src/app.ts",
-    "build": "tsc && node dist/src/app.js"
+    "start:dev": "ts-node-dev src/app.ts",
+    "start": "node dist/src/app.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
