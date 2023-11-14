@@ -2,9 +2,9 @@ import OpenAI from "openai";
 
 const KEY = process.env.OPEN_AI_KEY || "";
 
-if (!KEY) {
-  throw new Error("OPEN_AI_KEY is not defined");
-}
+// if (!KEY) {
+//   throw new Error("OPEN_AI_KEY is not defined");
+// }
 
 const openai = new OpenAI({
   apiKey: KEY,
@@ -13,17 +13,25 @@ const openai = new OpenAI({
 export const validateAnswers = async (
   submissions: { question: string; answer: string }[]
 ) => {
-  const completions = await Promise.all(
-    submissions.map((submission) =>
-      createCompletion(submission.question, submission.answer)
-    )
-  );
+  // const completions = await Promise.all(
+  //   submissions.map((submission) =>
+  //     createCompletion(submission.question, submission.answer)
+  //   )
+  // );
 
-  return completions.map((completion) => {
+  // return completions.map((completion) => {
+  //   return {
+  //     question: completion.question,
+  //     answer: completion.answer,
+  //     validation: completion.completion.choices[0].message.content,
+  //   };
+  // });
+
+  return submissions.map((completion) => {
     return {
       question: completion.question,
       answer: completion.answer,
-      validation: completion.completion.choices[0].message.content,
+      validation: "NO VALIDATION YET",
     };
   });
 };

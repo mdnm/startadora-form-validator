@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-//import * as submissionRepository from "../repositories/submissionRepository";
-//import * as aiService from "../services/aiService";
+import * as submissionRepository from "../repositories/submissionRepository";
+import * as aiService from "../services/aiService";
 
 export const validate = async (req: Request, res: Response) => {
   const { Email, ...questions } = req.body;
@@ -10,21 +10,14 @@ export const validate = async (req: Request, res: Response) => {
       return { question, answer: answer as string };
     });
 
-    console.log({
-      Email,
-      submissions,
-    });
+    const validatedAnswers = await aiService.validateAnswers(submissions);
 
-    return res.status(201).json({ message: "Successfully stored submission" });
+    await submissionRepository.saveSubmission(
+      Email as string,
+      validatedAnswers
+    );
 
-    // const validatedAnswers = await aiService.validateAnswers(submissions);
-
-    // await submissionRepository.saveSubmission(
-    //   Email as string,
-    //   validatedAnswers
-    // );
-
-    // res.status(201).json({ message: "Successfully stored submission" });
+    res.status(201).json({ message: "Successfully stored submission" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to store submission" });
