@@ -16,7 +16,7 @@ export const saveSubmission = async (
 
     const values = answers.map((answer) => {
       return t.none(
-        "INSERT INTO answers (submission_id, question, answer, validation) VALUES ($1, $2, $3, $4)",
+        'INSERT INTO answers ("submissionId", question, answer, validation) VALUES ($1, $2, $3, $4)',
         [id, answer.question, answer.answer, answer.validation]
       );
     });
