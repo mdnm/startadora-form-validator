@@ -14,10 +14,14 @@ export const saveSubmission = async (
       [email]
     );
 
+    if (!id) {
+      throw new Error("Failed to save submission");
+    }
+
     const values = answers.map((answer) => {
       return t.none(
         'INSERT INTO answers ("submissionId", question, answer, validation) VALUES ($1, $2, $3, $4)',
-        [id, answer.question, answer.answer, answer.validation]
+        [Number(id), answer.question, answer.answer, answer.validation]
       );
     });
 
