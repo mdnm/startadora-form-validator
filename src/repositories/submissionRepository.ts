@@ -9,14 +9,10 @@ export const saveSubmission = async (
   }[]
 ) => {
   return await db.tx(async (t) => {
-    const id = await t.one(
+    const { id } = await t.one(
       "INSERT INTO submissions (email) VALUES ($1) RETURNING id",
       [email]
     );
-
-    if (!id) {
-      throw new Error("Failed to save submission");
-    }
 
     const values = answers.map((answer) => {
       return t.none(
