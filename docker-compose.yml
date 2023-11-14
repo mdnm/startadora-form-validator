@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: startadora_form_validator_postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: startadora_form_validator
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - startadora_form_validator_network
+
+networks:
+  startadora_form_validator_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
